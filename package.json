@@ -1,0 +1,39 @@
+{
+  "name": "hapi-mongoose-models",
+  "version": "1.0.0",
+  "description": "Auto load mongoose models for Hapi.js",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "./node_modules/lab/bin/lab -c",
+    "test-coverage": "./node_modules/lab/bin/lab -t 100",
+    "test-coverage-html": "./node_modules/lab/bin/lab -c -r html -o ./test/artifacts/coverage.html && open ./test/artifacts/coverage.html"
+  },
+  "keywords": [
+    "hapi-mongoose-models"
+  ],
+  "author": "Luis Miguel Bula Mora <bulaluis@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^1.4.2",
+    "glob": "^5.0.15",
+    "hoek": "^2.16.3",
+    "joi": "^6.9.0",
+    "mongoose": "^4.1.10"
+  },
+  "devDependencies": {
+    "code": "^1.5.0",
+    "hapi": "^10.4.1",
+    "lab": "^6.2.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bulaluis/hapi-mongoose-models.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bulaluis/hapi-mongoose-models/issues"
+  },
+  "homepage": "https://github.com/bulaluis/hapi-mongoose-models#readme"
+}
