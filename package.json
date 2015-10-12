@@ -9,7 +9,9 @@
     "test-coverage-html": "./node_modules/lab/bin/lab -c -r html -o ./test/artifacts/coverage.html && open ./test/artifacts/coverage.html"
   },
   "keywords": [
-    "hapi-mongoose-models"
+    "hapi-mongoose-models",
+    "hapi",
+    "mongoose"
   ],
   "author": "Luis Miguel Bula Mora <bulaluis@gmail.com>",
   "license": "MIT",
