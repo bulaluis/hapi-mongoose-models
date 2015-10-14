@@ -1,6 +1,6 @@
 {
   "name": "hapi-mongoose-models",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Auto load mongoose models for Hapi.js",
   "main": "lib/index.js",
   "scripts": {
