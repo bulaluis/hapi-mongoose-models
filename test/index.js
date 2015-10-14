@@ -11,7 +11,6 @@ var Plugin = require('../lib');
 var lab = exports.lab = Lab.script();
 var server;
 
-
 lab.before(function (done) {
 
     server = new Hapi.Server();
@@ -19,8 +18,8 @@ lab.before(function (done) {
     server.register({
         register: Plugin,
         options: {
-            pattern: '../models/**/*.js',
-            options: {
+            globPattern: '../models/**/*.js',
+            globOptions: {
                 cwd: __dirname
             }
         }
@@ -33,7 +32,6 @@ lab.before(function (done) {
         return done();
     });
 });
-
 
 lab.experiment('Hapi-mongoose-models', function () {
 
