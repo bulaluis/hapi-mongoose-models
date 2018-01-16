@@ -1,47 +1,53 @@
 // Load modules
 
-var Lab = require('lab');
-var Code = require('code');
-var Hapi = require('hapi');
-var Plugin = require('../lib');
-
+let Lab = require('lab');
+let Hapi = require('hapi');
+let Plugin = require('../lib');
+const { expect, } = require('code');
 
 // Tests
 
-var lab = exports.lab = Lab.script();
+let lab = exports.lab = Lab.script();
 var server;
 
-lab.before(function (done) {
 
-    server = new Hapi.Server();
-    server.connection({ port: 3000 });
-    server.register({
-        register: Plugin,
-        options: {
-            globPattern: '../models/**/*.js',
-            globOptions: {
-                cwd: __dirname
+lab.experiment(Plugin.pkg.name, () => {
+
+    lab.before(async () => {
+
+        server = Hapi.server({ port: 3000 });
+
+
+        server.events.on('log', (event, tags) => {
+
+            if (tags[Plugin.pkg.name]) {
+                console.log(event.data);
             }
-        }
-    }, function (err) {
+        });
 
-        if (err) {
-            return done(err);
-        }
+        await server.register({
+            plugin: Plugin,
+            options: {
+                globPattern: '../models/**/*.js',          // Required
+                globOptions: {                          // https://github.com/isaacs/node-glob
+                    cwd: __dirname,                     // Required
+                    nosort: true                        // Optional, utils for mongoose descriptors
+                }
+            }
+        });
+        await server.start();
+    });
 
-        return done();
+
+    lab.test('tested valid plugin', () => {
+        expect(server.plugins[Plugin.pkg.name]).to.be.an.object();
+    });
+    lab.test('tested valid models', () => {
+        expect(server.plugins[Plugin.pkg.name].Normal).to.be.a.function();
+        expect(server.plugins[Plugin.pkg.name].Withfunction).to.be.a.function();
+    });
+    lab.test('tested non-valid models', () => {
+        expect(server.plugins[Plugin.pkg.name].Nomodel).to.be.undefined();
     });
 });
 
-lab.experiment('Hapi-mongoose-models', function () {
-
-    lab.test('it returns models', function (done) {
-
-        Code.expect(server.plugins['hapi-mongoose-models']).to.be.an.object();
-        Code.expect(server.plugins['hapi-mongoose-models'].Normal).to.be.a.function();
-        Code.expect(server.plugins['hapi-mongoose-models'].Withfunction).to.be.a.function();
-        Code.expect(server.plugins['hapi-mongoose-models'].Nomodel).to.be.undefined();
-
-        return done();
-    });
-});

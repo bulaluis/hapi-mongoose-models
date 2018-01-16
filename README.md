@@ -11,13 +11,14 @@ $ npm install hapi-mongoose-models
 ## Usage
 
 ```javascript
-var Hapi = require('hapi');
-var Mongoose = require('mongoose');
-var server = new Hapi.Server();
-server.connection({ port: 8000 });
+const Hapi = require('hapi');
+const Mongoose = require('mongoose');
+const server = Hapi.server({ port: 80 });
 
-server.register({
-        register: require('hapi-mongoose-models'),
+const provision = async () => {
+
+    await server.register({
+        plugin: require('hapi-mongoose-models'),
         options: {
             globPattern: './server/models/**/*.js', // Required
             globOptions: {                          // https://github.com/isaacs/node-glob
@@ -25,28 +26,15 @@ server.register({
                 nosort: true                        // Optional, utils for mongoose descriptors
             }
         }
-    }, function (err) {
+    };
 
-        if (err) {
-            throw err;
-        }
+    await server.start();
 
-        server.start(function (err) {
+    console.log('Server running at:', server.info.uri);
+};
 
-            if (err) {
-                throw err;
-            }
+provision();
 
-            // Now you can load model
-            var model = server.plugins['hapi-mongoose-models'].User;
-
-            // or
-            var model = Mongoose.model('User');
-
-            console.log('Server started at: ' + server.info.uri);
-        });
-    }
-});
 ```
 
 ## Tests
