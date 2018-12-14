@@ -16,15 +16,15 @@
   "author": "Luis Miguel Bula Mora <bulaluis@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "globby": "^7.1.1",
-    "hoek": "^5.0.2",
-    "joi": "^13.1.0",
-    "mongoose": "^4.13.9"
+    "globby": "^8.0.1",
+    "hoek": "^6.1.2",
+    "joi": "^14.3.0",
+    "mongoose": "^5.3.16"
   },
   "devDependencies": {
-    "code": "^5.1.2",
-    "hapi": "^17.2.0",
-    "lab": "^15.2.0"
+    "code": "^5.2.4",
+    "hapi": "^17.8.1",
+    "lab": "^18.0.0"
   },
   "directories": {
     "test": "test"
