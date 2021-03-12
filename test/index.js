@@ -1,9 +1,9 @@
 // Load modules
 
-let Lab = require('lab');
-let Hapi = require('hapi');
+let Lab = require('@hapi/lab');
+let Hapi = require('@hapi/hapi');
 let Plugin = require('../lib');
-const { expect, } = require('code');
+const { expect } = require('@hapi/code');
 
 // Tests
 
@@ -17,9 +17,7 @@ lab.experiment(Plugin.pkg.name, () => {
 
         server = Hapi.server({ port: 3000 });
 
-
         server.events.on('log', (event, tags) => {
-
             if (tags[Plugin.pkg.name]) {
                 console.log(event.data);
             }
@@ -38,7 +36,6 @@ lab.experiment(Plugin.pkg.name, () => {
         await server.start();
     });
 
-
     lab.test('tested valid plugin', () => {
         expect(server.plugins[Plugin.pkg.name]).to.be.an.object();
     });
@@ -49,5 +46,8 @@ lab.experiment(Plugin.pkg.name, () => {
     lab.test('tested non-valid models', () => {
         expect(server.plugins[Plugin.pkg.name].Nomodel).to.be.undefined();
     });
+
+    lab.after(() => server.stop());
+
 });
 
